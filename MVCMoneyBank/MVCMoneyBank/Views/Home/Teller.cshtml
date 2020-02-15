@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MVCMoneyBank.Models.TransactionType>
+
+@{
+    ViewBag.Title = "Teller";
+
+}
+
+<h2>Money Bank</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+
+    <div class="form-horizontal">
+        <h4>Manual Teller Machine</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div>@Html.Label("Transaction Name")</div>
+            <div class="col-md-10">
+                <select name="transactionType" class="form-control">
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var ddlitem in Model)
+                            {
+                                <option value="@ddlitem.TransactionTypeID">@ddlitem.TransactionName</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>@Html.Label("Amount")</div>
+            <div class="col-md-10">
+                <input id="Text1" type="number" step="0.01" name="amount" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Continue" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
